@@ -1,3 +1,6 @@
+.app{
+    overflow: hidden;
+}
 .header{
     height: var(--header-height);
     background-image: linear-gradient(0, #fc5b31, #f32715);
@@ -9,7 +12,7 @@
 .header__navbar-list{
     padding-left: 0;
     list-style-type: none;
-   margin-top: 4px 0 0 0;
+    margin: 4px 0 ;
    display: flex;
 }
 .header__navbar-item{
@@ -117,17 +120,22 @@
  }
 /* nó css vào thẻ a chứ k phải thẻ li */
 .header__navbar-user-item{
-    
+    line-height:2.2rem;
+}
+.header__navbar-user-item:hover a{
+    color: rgb(23, 184, 162);
 }
 .header__navbar-user-item-separate{
-    border-top: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(0,0,0,0.03);
 }
 .header__navbar-user-item a {
     text-decoration:none;
-    color:var(--text-color);
+    color:rgba(0, 0, 0, 0.6);
     font-size:1.4rem;
     padding: 4px 16px;
     display:block;
+    font-weight:400;
+    
     /* padding nó k ăn thẻ a nó k đẩy ra padding nên mk phải cho cái thuộc tính display:inline-block; or block cx đc vì nó xuống dòng sẵn r */
     /* hover vào thẻ a cx đc vì mk padding vào nó r */
 }
@@ -135,6 +143,7 @@
 .header__navbar-user-item a:first-child{
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
+    padding-top:8px;
 }
 .header__navbar-user-item a:last-child{
     border-bottom-left-radius: 2px;
@@ -302,6 +311,52 @@
    line-height:1.8rem;
    margin-top: 4px;
 }
+/* header__sort-bar */
+.header__sort-bar{
+    position:fixed;
+    top:var(--header-height);
+    left:0;
+    right:0;
+    height:var(--header-sort-bar-height);
+    background-color:var(--white-color);
+    /* display:flex; */
+    list-style: none;
+    margin:0;
+    padding-left:0;
+    border-top: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
+    display:none;
+    /* cho nó ẩn đi thì bỏ cái display :flex đi, trong PC thì trả lại nó là flex ,block cx ok nhưng nó sẽ vỡ giao diện  */
+}
+.header__sort-item{
+    flex:1;
+    /* flex bằng 1 để nó chiếm hết cái chiều ngang */
+}
+.header__sort-item:first-child .header__sort-link::after{
+    display: none;
+}
+.header__sort-link{
+    position: relative;
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
+    font-size:1.4rem;
+    height: 100%;
+    line-height:var(--header-sort-bar-height);
+    text-align: center;
+}
+.header__sort-link::after{
+    position:absolute;
+    content: '';
+    top:50%;
+    left:0;
+    height:60%;
+    border-left:1px solid #e5e5e5;
+    transform:translateY(-50%);
+}
+.header__sort-item--active .header__sort-link{
+    color:var(--primary-color);
+}
 .footer__notify-footer{
     display:flex;
     padding: 8px 32px;
@@ -436,9 +491,24 @@
     align-items: center;
     margin: 0 8px;
 }
+.header__mobile-search{
+    padding: 0 12px;
+    display: none;
+    /* cho nó bằng cái thằng giỏ hàng để nó đều 2 bên nha */
+}
+.header__mobile-search-icon {
+    font-size: 2.6rem;
+    color:var(--white-color)
+}
 .header__logo{
     width:200px;
 
+}
+.header__logo-link{
+    display: block;
+    color:transparent;
+    text-decoration: none;
+    line-height:0;
 }
 .header__logo-img{
     width:150px;
@@ -451,7 +521,9 @@
     border-radius: 2px;
     display:flex;
     align-items: center;
+    
 }
+
 .header__cart{
     width:150px;
     text-align:center;
@@ -461,6 +533,8 @@
     display:inline-block;
     cursor: pointer;
     padding:0 12px;
+    -webkit-tap-highlight-color: transparent;
+    /* khi mk kích chuột nó hiện lên cái nền màu padding xấu ở mobile nên bỏ nó đi */
     
 }
 
@@ -537,7 +611,7 @@
 .header__cart-list-item{
     padding-left:0;
     list-style: none;
-    height:56vh; 
+    max-height:56vh; 
     /* 70vh là 70% chiều cao của trình duyệt */
     overflow-y: auto;
 }
@@ -670,7 +744,7 @@
 .header__search-option{
     position: absolute;
     width:130px;
-    top: 100%;
+    top: calc(100% - 6px);
     right:0;
     list-style:none;
     padding-top: 8px;
@@ -680,6 +754,7 @@
      animation:fadeIn ease-in 0.2s;
      background-color: var(--white-color);
      z-index: 1  ;
+     border-radius:2px;
    
 }
 .header__search-selection:hover .header__search-option{
@@ -711,7 +786,7 @@
 .header__search-option i{
     font-size:1.4rem;
     color:var(--primary-color);
-    margin: 0 4px 0 6px
+    margin: 0 4px 0 6px 
     /* margin: 0 4px 0 6px;ban đầu nó là 12px chứ k phải 6 */
 }
 .header__search-item:hover{
@@ -730,7 +805,7 @@
     position: absolute;
     background-color: var(--white-color);
     border-radius: 2px;
-    top: 116%;
+    top: calc(100% + 4px);
     left: 0;
     box-shadow: 0 1px 3px #999;
     width: 630px;
@@ -846,6 +921,58 @@
     transform:translateY(-50%); */
 }
 /* Home sort + filter */
+
+/* Mobile category */
+
+.mobile-category{
+    display:none;
+}
+.mobile-category__list{
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    max-width: 100%;
+    overflow-x: auto;
+}
+.mobile-category__list::-webkit-scrollbar {
+    display: none;
+}
+.mobile-category__item{
+    flex-shrink: 0;
+    margin-right: 10px;
+}
+.mobile-category__item:nth-of-type(3n+1) .mobile-category__link{
+    background-color:#87afd8;
+}
+.mobile-category__item:nth-of-type(3n+2) .mobile-category__link{
+    background-color: #76c9bd;
+}
+.mobile-category__item:nth-of-type(3n+3) .mobile-category__link{
+    background-color:#88cf81;
+}
+
+.mobile-category__link{
+    --line-height:2rem;
+    text-decoration: none;
+    color:var(--white-color);
+    font-size:1.4rem;
+    line-height: var(--line-height);
+    text-align: center;
+    width: 110px;
+    height:calc(var(--line-height) *2);
+    display:block; 
+    border-radius: 4px;
+     font-weight: 300; 
+     overflow: hidden;
+     display: -webkit-box;
+     -webkit-box-orient:vertical;
+     -webkit-line-clamp: 2;
+     user-select: none;
+     /* k cho nguwoif dùng select vào chữ */
+    padding:0 7px;
+
+    
+}
 
 .home-filter{
     display:flex;
@@ -1107,6 +1234,7 @@ i.home-pruduct-item__like-icon-fill{
 .home-product__pagination{
     margin-top: 50px;
     margin-bottom:32px;
+    padding-left: 0;
 }
 
 /* footer */
